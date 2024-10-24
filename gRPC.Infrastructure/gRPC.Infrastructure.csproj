@@ -16,7 +16,6 @@
 
 	<ItemGroup>
     <Folder Include="Protos\" />
-    <Folder Include="Persistance\" />
   </ItemGroup>
 
   <ItemGroup>
