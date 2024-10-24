@@ -4,7 +4,7 @@ using gRPC.Service.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlite("Data Source=Shopping.db"));
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlite("Data Source=Database/Shopping.db"));
 
 builder.Services.AddGrpc();
 
