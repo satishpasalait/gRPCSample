@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.Infrastructure.Protos.product";
+
+//import "Domain/Protos/product.proto";
+
+service Product {
+	rpc ReadProduct(ProductRequest) returns (ProductResponse);
+}
+
+message ProductRequest {
+	int32 id = 1;
+}
+
+message ProductResponse {
+	int32 id = 1;
+	string productName = 2;
+}
