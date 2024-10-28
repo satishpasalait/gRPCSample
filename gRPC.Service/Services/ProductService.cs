@@ -45,4 +45,18 @@ public class ProductService : Product.ProductBase
             Id = result
         });
     }
+
+    public override async Task<UpdateProductResponse> UpdateProduct(UpdateProductRequest request, ServerCallContext context)
+    {
+        if (request.Product == null) throw new RpcException(new Status(StatusCode.InvalidArgument, "Enter valid product data."));
+
+        var updateProduct = _mapper.Map<ProductEntity>(request.Product);
+
+        var result = await _productRepository.UpdateProductAsync(updateProduct);
+
+        return await Task.FromResult(new UpdateProductResponse
+        {
+            Id = result
+        });
+    }
 }
