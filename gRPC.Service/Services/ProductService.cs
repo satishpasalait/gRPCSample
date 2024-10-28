@@ -59,4 +59,23 @@ public class ProductService : Product.ProductBase
             Id = result
         });
     }
+
+    public override async Task<DeleteProductResponse> DeleteProduct(DeleteProductRequest request, ServerCallContext context)
+    {
+        if (request.Id <= 0) throw new RpcException(new Status(StatusCode.InvalidArgument, "Enter valid product data."));
+
+        var deleteProduct = await _productRepository.GetProductByIdAsync(request.Id);
+
+        var result = 0;
+
+        if (deleteProduct == null)
+        {
+            result = await _productRepository.DeleteProductAsync(deleteProduct);
+        }
+
+        return await Task.FromResult(new DeleteProductResponse
+        {
+            Id = result
+        });
+    }
 }

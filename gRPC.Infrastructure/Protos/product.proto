@@ -9,6 +9,8 @@ service Product {
 	rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
 
 	rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
+
+	rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse);
 }
 
 message ProductBase {
@@ -42,5 +44,13 @@ message UpdateProductRequest {
 }
 
 message UpdateProductResponse {
+	int32 id = 1;
+}
+
+message DeleteProductRequest {
+	int32 id = 1;
+}
+
+message DeleteProductResponse {
 	int32 id = 1;
 }
