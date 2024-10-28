@@ -82,7 +82,7 @@ public class ProductService : Product.ProductBase
 
         var result = 0;
 
-        if (deleteProduct == null)
+        if (deleteProduct != null)
         {
             result = await _productRepository.DeleteProductAsync(deleteProduct);
         }
