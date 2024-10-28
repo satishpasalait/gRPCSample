@@ -38,17 +38,9 @@ public class ProductService : Product.ProductBase
 
         var result = 0;
 
-        try
-        {
-            var createProduct = _mapper.Map<ProductEntity>(request.Product);
+        var createProduct = _mapper.Map<ProductEntity>(request.Product);
 
-            result = await _productRepository.CreateProductAsync(createProduct);
-
-        }
-        catch (Exception ex)
-        {
-            var message = ex.Message;
-        }
+        result = await _productRepository.CreateProductAsync(createProduct);
 
         return await Task.FromResult(new CreateProductResponse
         { 
