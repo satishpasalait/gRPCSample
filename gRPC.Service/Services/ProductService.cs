@@ -24,11 +24,11 @@ public class ProductService : Product.ProductBase
         var product = await _productRepository.GetProductByIdAsync(request.Id) 
             ?? throw new RpcException(new Status(StatusCode.NotFound, "Product was not found."));
 
-        var responseProduct = _mapper.Map<ReadProductResponse>(product);
+        var responseProduct = _mapper.Map<ProductBase>(product);
 
         return await Task.FromResult(new ReadProductResponse
         {
-            Product = responseProduct.Product
+            Product = responseProduct
         });
     }
 
@@ -36,9 +36,19 @@ public class ProductService : Product.ProductBase
     {
         if (request.Product == null) throw new RpcException(new Status(StatusCode.InvalidArgument, "Enter valid product data."));
 
-        var createProduct = _mapper.Map<ProductEntity>(request.Product);
+        var result = 0;
 
-        var result = await _productRepository.CreateProductAsync(createProduct);
+        try
+        {
+            var createProduct = _mapper.Map<ProductEntity>(request.Product);
+
+            result = await _productRepository.CreateProductAsync(createProduct);
+
+        }
+        catch (Exception ex)
+        {
+            var message = ex.Message;
+        }
 
         return await Task.FromResult(new CreateProductResponse
         { 

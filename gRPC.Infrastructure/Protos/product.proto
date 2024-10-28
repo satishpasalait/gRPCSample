@@ -17,7 +17,7 @@ message ProductBase {
 	int32 id = 1;
 	string productName = 2;
 	string productDescription = 3;
-	string ProductType = 4;
+	string productType = 4;
 	int32 quantity = 5;
 	float unitPrice = 6;
 	string vendor = 7;
