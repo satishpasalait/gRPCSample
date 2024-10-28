@@ -2,17 +2,15 @@ syntax = "proto3";
 
 option csharp_namespace = "gRPC.Infrastructure.Protos.product";
 
-//import "Domain/Protos/product.proto";
-
 service Product {
-	rpc ReadProduct(ProductRequest) returns (ProductResponse);
+	
+	rpc ReadProduct(ReadProductRequest) returns (ReadProductResponse);
+
+	rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
+
 }
 
-message ProductRequest {
-	int32 id = 1;
-}
-
-message ProductResponse {
+message ProductBase {
 	int32 id = 1;
 	string productName = 2;
 	string productDescription = 3;
@@ -20,4 +18,20 @@ message ProductResponse {
 	int32 quantity = 5;
 	float unitPrice = 6;
 	string vendor = 7;
+}
+
+message ReadProductRequest {
+	int32 id = 1;
+}
+
+message ReadProductResponse {
+	ProductBase product = 1;
+}
+
+message CreateProductRequest {
+	ProductBase product = 1;
+}
+
+message CreateProductResponse {
+	int32 id = 1;
 }

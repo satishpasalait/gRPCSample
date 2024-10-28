@@ -3,6 +3,7 @@ using gRPC.Infrastructure.Data;
 using gRPC.Service.Services;
 using gRPC.Domain.Repositories;
 using gRPC.Infrastructure.Persistance;
+using gRPC.Service.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlite("Data Source=Da
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddGrpc();
+
+builder.Services.AddAutoMapper(typeof(ServiceProfile).Assembly);
 
 var app = builder.Build();
 
