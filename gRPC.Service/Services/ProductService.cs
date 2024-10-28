@@ -50,11 +50,23 @@ public class ProductService : Product.ProductBase
 
     public override async Task<UpdateProductResponse> UpdateProduct(UpdateProductRequest request, ServerCallContext context)
     {
-        if (request.Product == null) throw new RpcException(new Status(StatusCode.InvalidArgument, "Enter valid product data."));
+        if (request.Product == null || request.Product.Id <= 0) throw new RpcException(new Status(StatusCode.InvalidArgument, "Enter valid product data."));
 
-        var updateProduct = _mapper.Map<ProductEntity>(request.Product);
+        var updateProduct = await _productRepository.GetProductByIdAsync(request.Product.Id);
 
-        var result = await _productRepository.UpdateProductAsync(updateProduct);
+        var result = 0;
+
+        if (updateProduct != null)
+        {
+            updateProduct.ProductName = request.Product.ProductName;
+            updateProduct.ProductDescription = request.Product.ProductDescription;
+            updateProduct.ProductType = request.Product.ProductType;
+            updateProduct.Quantity = request.Product.Quantity;
+            updateProduct.UnitPrice = Convert.ToDecimal(request.Product.UnitPrice);
+            updateProduct.Vendor = request.Product.Vendor;
+
+            result = await _productRepository.UpdateProductAsync(updateProduct);
+        }
 
         return await Task.FromResult(new UpdateProductResponse
         {
