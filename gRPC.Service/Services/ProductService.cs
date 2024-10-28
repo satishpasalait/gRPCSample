@@ -32,6 +32,27 @@ public class ProductService : Product.ProductBase
         });
     }
 
+    public override async Task<ListProductResponse> ListProduct(ListProductRequest request, ServerCallContext context)
+    {
+        var response = new ListProductResponse();
+        var products = await _productRepository.GetAllAsync();
+
+        foreach (var product in products)
+        {
+            response.Products.Add(new ProductBase
+            {
+                Id = product.Id,
+                ProductName = product.ProductName,
+                ProductDescription = product.ProductDescription,
+                ProductType = product.ProductType,
+                Quantity = product.Quantity,
+                UnitPrice = Convert.ToSingle(product.UnitPrice),
+                Vendor = product.Vendor,
+            });
+        }
+        return await Task.FromResult(response);
+    }
+
     public override async Task<CreateProductResponse> CreateProduct(CreateProductRequest request, ServerCallContext context)
     {
         if (request.Product == null) throw new RpcException(new Status(StatusCode.InvalidArgument, "Enter valid product data."));

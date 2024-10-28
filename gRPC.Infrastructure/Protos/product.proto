@@ -6,6 +6,8 @@ service Product {
 	
 	rpc ReadProduct(ReadProductRequest) returns (ReadProductResponse);
 
+	rpc ListProduct(ListProductRequest) returns (ListProductResponse);
+
 	rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);
 
 	rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);
@@ -29,6 +31,14 @@ message ReadProductRequest {
 
 message ReadProductResponse {
 	ProductBase product = 1;
+}
+
+message ListProductRequest {
+
+}
+
+message ListProductResponse {
+	repeated ProductBase products = 1;
 }
 
 message CreateProductRequest {
