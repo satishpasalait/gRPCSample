@@ -10,7 +10,7 @@ builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlite("Data Source=Da
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-builder.Services.AddGrpc();
+builder.Services.AddGrpc().AddJsonTranscoding();
 
 builder.Services.AddAutoMapper(typeof(gRPC.Service.ServiceProfile).Assembly);
 
