@@ -2,13 +2,11 @@
 using gRPC.Domain.Entities;
 using gRPC.Infrastructure.Protos.product;
 
-
-
 namespace gRPC.Service
 {
     public class ServiceProfile : Profile
     {
-        public ServiceProfile() 
+        public ServiceProfile()
         {
             CreateMap<ProductEntity, ProductBase>()
                 .ForMember(dest => dest.UnitPrice, opt => opt.MapFrom(src => Convert.ToSingle(src.UnitPrice)));

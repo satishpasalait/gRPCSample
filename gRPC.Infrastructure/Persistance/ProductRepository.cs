@@ -2,17 +2,11 @@
 using gRPC.Domain.Repositories;
 using gRPC.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace gRPC.Infrastructure.Persistance
 {
     public class ProductRepository : IProductRepository
     {
-
         private readonly AppDbContext _appDbContext;
 
         public ProductRepository(AppDbContext appDbContext)
@@ -50,6 +44,5 @@ namespace gRPC.Infrastructure.Persistance
             await _appDbContext.SaveChangesAsync();
             return product.Id;
         }
-
     }
 }
